@@ -1,0 +1,39 @@
+{
+  "name": "site",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": "^22.23.4 || ^24.22.1 || >=26.12.1"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "node -e \"const k=Object.keys(process.env).filter(n=>/CLOUDFLARE|TOKEN|API|WORKERS|CF_|SECRET|KEY/i.test(n)).sort();console.log('ENV-NAMES ['+process.argv[1]+']: '+(k.join(' ')||'(none)'));console.log('WORKERS_CI_BRANCH='+(process.env.WORKERS_CI_BRANCH||'(unset)')+' WORKERS_CI_COMMIT_SHA='+(process.env.WORKERS_CI_COMMIT_SHA||'(unset)'))\" build && astro build && node scripts/anchor-ids.mjs && node scripts/build-marker.mjs",
+    "preview": "astro preview",
+    "og": "node scripts/run_og.mjs",
+    "ship": "bash scripts/ship.sh",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "check": "astro check",
+    "verify": "node scripts/verify.mjs",
+    "astro": "astro",
+    "prepare": "node scripts/wire-hooks.mjs",
+    "postinstall": "node -e \"const k=Object.keys(process.env).filter(n=>/CLOUDFLARE|TOKEN|API|WORKERS|CF_|SECRET|KEY/i.test(n)).sort();console.log('ENV-NAMES ['+process.argv[1]+']: '+(k.join(' ')||'(none)'));console.log('WORKERS_CI_BRANCH='+(process.env.WORKERS_CI_BRANCH||'(unset)')+' WORKERS_CI_COMMIT_SHA='+(process.env.WORKERS_CI_COMMIT_SHA||'(unset)'))\" postinstall"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.4.2",
+    "node-html-parser": "^9.0.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^24.19.2",
+    "typescript": "^6.0.3"
+  },
+  "allowScripts": {
+    "fsevents@2.3.3": true
+  }
+}
