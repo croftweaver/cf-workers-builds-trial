@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "node -e \"const k=Object.keys(process.env).filter(n=>/CLOUDFLARE|TOKEN|API|WORKERS|CF_|SECRET|KEY/i.test(n)).sort();console.log('ENV-NAMES ['+process.argv[1]+']: '+(k.join(' ')||'(none)'));console.log('WORKERS_CI_BRANCH='+(process.env.WORKERS_CI_BRANCH||'(unset)')+' WORKERS_CI_COMMIT_SHA='+(process.env.WORKERS_CI_COMMIT_SHA||'(unset)'))\" build && astro build && node scripts/anchor-ids.mjs && node scripts/build-marker.mjs",
+    "build": "node scripts/ci-env.mjs build && astro build && node scripts/anchor-ids.mjs && node scripts/build-marker.mjs",
     "preview": "astro preview",
     "og": "node scripts/run_og.mjs",
     "ship": "bash scripts/ship.sh",
@@ -19,7 +19,7 @@
     "verify": "node scripts/verify.mjs",
     "astro": "astro",
     "prepare": "node scripts/wire-hooks.mjs",
-    "postinstall": "node -e \"const k=Object.keys(process.env).filter(n=>/CLOUDFLARE|TOKEN|API|WORKERS|CF_|SECRET|KEY/i.test(n)).sort();console.log('ENV-NAMES ['+process.argv[1]+']: '+(k.join(' ')||'(none)'));console.log('WORKERS_CI_BRANCH='+(process.env.WORKERS_CI_BRANCH||'(unset)')+' WORKERS_CI_COMMIT_SHA='+(process.env.WORKERS_CI_COMMIT_SHA||'(unset)'))\" postinstall"
+    "postinstall": "node scripts/ci-env.mjs postinstall"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
